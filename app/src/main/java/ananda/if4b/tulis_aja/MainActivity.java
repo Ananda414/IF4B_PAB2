@@ -102,10 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void deletePost(String id) {
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.deletePost("dirumahaja", id);
-        call.enqueue(new Callback<ValueNoData>() {
+        Call<ValueData<User>> call = api.deletePost(id);
+        call.enqueue(new Callback<ValueData<User>>() {
             @Override
-            public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
+            public void onResponse(Call<ValueData<User>> call, Response<ValueData<User>> response) {
                 if (response.code() == 200) {
                     int success = response.body().getSuccess();
                     String message = response.body().getMessage();
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ValueNoData> call, Throwable t) {
+            public void onFailure(Call<ValueData<User>> call, Throwable t) {
                 System.out.println("Retrofit Error : " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     private void getAllPost() {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueData<List<Post>>> call = api.getPost("dirumahaja");
+        Call<ValueData<List<Post>>> call = api.getPost();
         call.enqueue(new Callback<ValueData<List<Post>>>() {
             @Override
             public void onResponse(Call<ValueData<List<Post>>> call, Response<ValueData<List<Post>>> response) {

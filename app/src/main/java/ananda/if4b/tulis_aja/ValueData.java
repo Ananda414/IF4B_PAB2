@@ -9,7 +9,6 @@ public class ValueData<T> {
     @SerializedName("message")
     private String message;
 
-
     private T data;
 
     public int getSuccess() {
